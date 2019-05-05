@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
     }
     end = now();
 
-    printf("%ld,%f", NUM_KEYS - total_lost, NUM_KEYS, end - start);
+    printf("%ld,%f", total_lost, end - start);
 
     return 0;
 }
