@@ -109,8 +109,8 @@ int main(int argc, char **argv) {
     pthread_t *threads;
     double start, end;
 
-    for (int i = 0; i < NUM_BUCKETS; i++){
-      sem_init(&semaphores[i],0,1);
+    for (int j = 0; j < NUM_BUCKETS; i++){
+      sem_init(&semaphores[j],0,1);
     }
 
     if (argc != 2) {
