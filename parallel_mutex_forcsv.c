@@ -98,7 +98,7 @@ void * get_phase(void *arg) {
     for (key = tid ; key < NUM_KEYS; key += num_threads) {
         if (retrieve(keys[key]) == NULL) lost++;
     }
-    //intf("[thread %ld] %ld keys lost!\n", tid, lost);
+    //printf("[thread %ld] %ld keys lost!\n", tid, lost);
 
     pthread_exit((void *)lost);
 }
@@ -137,7 +137,8 @@ int main(int argc, char **argv) {
     }
     end = now();
 
-    printf("%d,%f,", NUM_KEYS, end - start); //total inserted, insertion time
+    printf("%d,%f", NUM_KEYS, end - start); //keys inserted, insertion time
+    //printf("[main] Inserted %d keys in %f seconds\n", NUM_KEYS, end - start);
 
     // Reset the thread array
     memset(threads, 0, sizeof(pthread_t)*num_threads);
@@ -157,7 +158,8 @@ int main(int argc, char **argv) {
     }
     end = now();
 
-    printf("%ld, %f,", total_lost, end - start); //keys lost, retrieval time
+    printf("%ld,%f", NUM_KEYS - total_lost, end - start); //keys retrieved, retrieval time
+    //printf("[main] Retrieved %ld/%d keys in %f seconds\n", NUM_KEYS - total_lost, NUM_KEYS, end - start);
 
     return 0;
 }
