@@ -106,10 +106,11 @@ void * get_phase(void *arg) {
 
 int main(int argc, char **argv) {
     long i;
+    int j;
     pthread_t *threads;
     double start, end;
 
-    for (int j = 0; j < NUM_BUCKETS; j++){
+    for (j = 0; j < NUM_BUCKETS; j++){
       sem_init(&semaphores[j],0,1);
     }
 
