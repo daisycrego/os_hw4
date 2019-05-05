@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
     pthread_t *threads;
     double start, end;
 
-    for (int j = 0; j < NUM_BUCKETS; i++){
+    for (int j = 0; j < NUM_BUCKETS; j++){
       sem_init(&semaphores[j],0,1);
     }
 
