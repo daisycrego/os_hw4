@@ -6,6 +6,6 @@ echo "value,   keys inserted, insertion time (s), keys lost during retrieval, re
 
 for value in {1..50}
 do
-  output=`./parallel_hashtable_forcsv $value`
+  output=`./parallel_semaphore_forcsv $value`
   echo "$value, $output" >> $1
 done
