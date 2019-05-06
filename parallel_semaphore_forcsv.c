@@ -143,6 +143,7 @@ int main(int argc, char **argv) {
     end = now();
 
     printf("%d,%f,", NUM_KEYS, end - start);
+    //printf("[main] Inserted %d keys in %f seconds\n", NUM_KEYS, end - start);
 
     // Reset the thread array
     memset(threads, 0, sizeof(pthread_t)*num_threads);
@@ -162,7 +163,8 @@ int main(int argc, char **argv) {
     }
     end = now();
 
-    printf("%ld,%f", total_lost, end - start);
+    printf("%ld,%f", NUM_KEYS - total_lost, end - start);
+    //printf("[main] Retrieved %ld/%d keys in %f seconds\n", NUM_KEYS - total_lost, NUM_KEYS, end - start);
 
     return 0;
 }
