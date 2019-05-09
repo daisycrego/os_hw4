@@ -1,3 +1,28 @@
+/*
+Part 2 comments:
+Do you see a change in the timing (when changing from mutex to spinlock)?
+Did you expect that?
+Write down the timing differences and your thoughts:
+
+We ran each version with thread numbers ranging from 1 to 1000, and after graphing
+the results found the following relationships between thread number and insertion time:
+
+y=insertion time, x=thread number
+Mutex: y = (2.56x10^-4)x + 0.055
+Spinlock:  y = (1.72x10^-4)x +0.045
+
+As the number of threads increases, we see a widening in the insertion time difference
+when using a mutex vs. a spinlock. As the number of threads increases, the spinlock
+is more efficient than the mutex. This finding was counterintuitive given our understanding of
+the general advantage of mutexes over spinlocks, but we have found some satisfying explanations
+(https://stackoverflow.com/questions/5869825/when-should-one-use-a-spinlock-instead-of-mutex).
+While mutexes operate by putting threads to sleep if the mutex is already held by another thread,
+(and later waking them up), spinlocks operate by continuously checking for the lock until it is
+obtained. As the number of threads grows, the cost of sleeping and waking threads exceeds the cost
+burning CPU cycles waiting for the spinlock, and using spinlocks becomes more efficient
+than using mutexes. 
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

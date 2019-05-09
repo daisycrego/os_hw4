@@ -9,7 +9,7 @@
 #define NUM_KEYS 100000   // Number of keys inserted per thread
 int num_threads = 1;      // Number of threads (configurable)
 int keys[NUM_KEYS];
-pthread_mutex_t locks[NUM_BUCKETS]; //
+pthread_mutex_t lock; //
 
 typedef struct _bucket_entry {
     int key;
@@ -59,12 +59,12 @@ void insert(int key, int val) {
     int i = key % NUM_BUCKETS;
     bucket_entry *e = (bucket_entry *) malloc(sizeof(bucket_entry));
     if (!e) panic("No memory to allocate bucket!");
-    pthread_mutex_lock(&locks[i]);
+    pthread_mutex_lock(&lock);
     e->next = table[i];
     e->key = key;
     e->val = val;
     table[i] = e;
-    pthread_mutex_unlock(&locks[i]);
+    pthread_mutex_unlock(&lock);
 }
 
 // Retrieves an entry from the hash table by key
@@ -104,14 +104,10 @@ void * get_phase(void *arg) {
 }
 
 int main(int argc, char **argv) {
-
+    pthread_mutex_init(&lock, NULL); //
     long i;
     pthread_t *threads;
     double start, end;
-
-    int j;
-    for (j = 0; j < NUM_BUCKETS; j++)
-      pthread_mutex_init(&locks[j], NULL); //
 
     if (argc != 2) {
         panic("usage: ./parallel_hashtable <num_threads>");

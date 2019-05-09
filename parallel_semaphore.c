@@ -58,9 +58,9 @@ double now() {
 // Inserts a key-value pair into the table
 void insert(int key, int val) {
     int i = key % NUM_BUCKETS;
-    sem_wait(&semaphores[i]);
     bucket_entry *e = (bucket_entry *) malloc(sizeof(bucket_entry));
     if (!e) panic("No memory to allocate bucket!");
+    sem_wait(&semaphores[i]);
     e->next = table[i];
     e->key = key;
     e->val = val;
